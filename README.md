@@ -4,7 +4,7 @@
 
 ```java
 @PostMapping(value = "/user/login.do")
-public HashMap<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) throws Exception {
+public HashMap<String, Object> actionLogin() throws Exception {
     // Login Action
 }
 ```
@@ -30,7 +30,7 @@ protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 @PostMapping(value = "/user/login.do")
 @SecurityPass
-public HashMap<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) throws Exception {
+public HashMap<String, Object> actionLogin() throws Exception {
     //login action
 }
 
