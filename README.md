@@ -2,12 +2,15 @@
 
 # AS-IS
 
+### Controller method
 ```java
 @PostMapping(value = "/user/login.do")
 public HashMap<String, Object> actionLogin() throws Exception {
     // Login Action
 }
 ```
+
+### SecurityFilterChain Config
 ```java
 private String[] AUTH_WHITELIST = {
         "/",
@@ -26,6 +29,7 @@ protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 ```
 
 # To-Be
+### Controller method
 ```java
 
 @PostMapping(value = "/user/login.do")
@@ -35,6 +39,7 @@ public HashMap<String, Object> actionLogin() throws Exception {
 }
 
 ```
+### SecurityFilterChain Config
 ```java
 @Autowired
 SecurityPassUtils securityPassUtils
