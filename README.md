@@ -14,7 +14,7 @@ public HashMap<String, Object> actionLogin() throws Exception {
 ```java
 private String[] AUTH_WHITELIST = {
         "/",
-    "/user/login.do",
+        "/user/login.do",
 };
 
 @Bean
@@ -39,6 +39,18 @@ public HashMap<String, Object> actionLogin() throws Exception {
 }
 
 ```
+
+### SecurityPassConfig
+```java
+@Configuration
+public class SecurityPassConfig {
+
+    @Bean
+    protected SecurityPassUtils securityPassUtils(){
+        return new SecurityPassUtils();
+    }
+}
+```
 ### SecurityFilterChain Config
 ```java
 @Autowired
@@ -46,7 +58,7 @@ SecurityPassUtils securityPassUtils
 
 @Bean
 protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    String[] permitAllUrls = securityPassUtils_test.getUrls();
+    String[] permitAllUrls = securityPassUtils.getUrls();
     
     return http
     .authorizeHttpRequests(authorize -> authorize
