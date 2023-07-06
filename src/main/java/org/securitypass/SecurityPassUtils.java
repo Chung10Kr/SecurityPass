@@ -1,20 +1,21 @@
 package org.securitypass;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
- * fileName       : SecurityUtils
+ * fileName       : SecurityPassUtils
  * author         : crlee
  * date           : 2023/06/21
  * description    : A feature that returns the values of
@@ -29,13 +30,14 @@ import java.util.List;
  * -----------------------------------------------------------
  * 2023/06/21        crlee       최초 생성
  */
-public class SecurityPassUtil {
+public class SecurityPassUtils {
+    @Autowired
+    ApplicationContext applicationContext;
 
     public String[] getUrls(){
         return getUrls(SecurityPassConst.ALL);
     }
     public String[] getUrls(String roleType){
-
         List<String> auth_whitelists = new ArrayList<>();
         try{
             auth_whitelists = searchMappingUrls(roleType);
@@ -45,8 +47,9 @@ public class SecurityPassUtil {
 
         return auth_whitelists.toArray(new String[0]);
     }
-    private List<String> searchMappingUrls(String roleType) throws ClassNotFoundException,
-            NoSuchMethodException, SecurityException, InvocationTargetException, IllegalAccessException, MalformedURLException {
+    private List<String> searchMappingUrls(String roleType) throws NoSuchMethodException, SecurityException, InvocationTargetException, IllegalAccessException {
+
+        List<String> auth_whitelists = new ArrayList<>();
 
         List<Class<? extends Annotation>> mappingAnnotations = Arrays.asList(
                 GetMapping.class,
@@ -55,13 +58,10 @@ public class SecurityPassUtil {
                 DeleteMapping.class,
                 PatchMapping.class
         );
-
-        List<Class> classes = findClasses(getTopPackage());
-        List<String> auth_whitelists = new ArrayList<>();
+        List<Class> classes = findController();
         for (Class clazz : classes) {
             for(Method method : clazz.getMethods()){
                 if (method.isAnnotationPresent(SecurityPass.class)) {
-
                     String[] roles = (String[]) method.getAnnotation(SecurityPass.class).getClass().getMethod("role").invoke(method.getAnnotation(SecurityPass.class));
                     if( Arrays.asList(roles).contains(roleType) ){
                         for (Class<? extends Annotation> annotationClass : mappingAnnotations) {
@@ -77,44 +77,13 @@ public class SecurityPassUtil {
         }
         return auth_whitelists;
     }
-    private String getTopPackage(){
-        Package basePackage = SecurityPassUtil.class.getPackage();
-        String packageName = basePackage.getName();
-        String[] packageLevels = packageName.split("\\.");
-        return packageLevels[0];
-    }
-    private List<Class> findClasses(String topPackage) throws ClassNotFoundException, MalformedURLException {
+
+    private List<Class> findController(){
         List<Class> classes = new ArrayList<>();
-
-        URL resourceUrl = new URL( getClass().getProtectionDomain().getCodeSource().getLocation() , topPackage );
-        if (resourceUrl == null) {
-            throw new ClassNotFoundException("No resource found for : " + topPackage);
+        Map<String, Object> beansWithControllerAnnotation = applicationContext.getBeansWithAnnotation(Controller.class);
+        for(Object controller : beansWithControllerAnnotation.values()) {
+            classes.add(controller.getClass());
         }
-
-        File directory = new File(resourceUrl.getFile());
-        if (!directory.exists()) {
-            throw new ClassNotFoundException(topPackage + " not found.");
-        }
-
-        findClassesRecursive(topPackage, directory, classes);
         return classes;
     }
-
-    private void findClassesRecursive(String packageName, File directory, List<Class> classes) throws ClassNotFoundException {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                String fileName = file.getName();
-                if (file.isDirectory()) {
-                    String subPackageName = packageName + "." + fileName;
-                    findClassesRecursive(subPackageName, file, classes);
-                } else if (file.isFile() && fileName.endsWith(".class")) {
-                    String className = packageName + '.' + fileName.substring(0, fileName.length() - 6);
-                    Class clazz = Class.forName(className);
-                    classes.add(clazz);
-                }
-            }
-        }
-    }
-
 }

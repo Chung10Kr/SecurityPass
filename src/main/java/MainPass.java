@@ -1,10 +1,6 @@
-import org.securitypass.SecurityPassUtil;
-
-import java.net.URL;
-import java.security.CodeSource;
 
 /**
- * fileName       : Main
+ * fileName       : MainPass
  * author         : crlee
  * date           : 2023/07/04
  * description    :
@@ -15,9 +11,6 @@ import java.security.CodeSource;
  */
 public class MainPass {
     public static void main(String[] args){
-        CodeSource codeSource = SecurityPassUtil.class.getProtectionDomain().getCodeSource();
-        if (codeSource != null) {
-            URL jarFileURL = codeSource.getLocation();
-        }
+
     }
 }
