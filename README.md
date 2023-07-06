@@ -1,4 +1,7 @@
 # SecurityPass
+- SecurityPass makes it more convenient to use Spring Security.
+- SecurityPass provides the @SecurityPass annotation. The @SecurityPass annotation can be used on a controller's methods.
+- SecurityPassUtils returns the API URLs of methods with the @SecurityPass annotation attached.
 
 # AS-IS
 
@@ -58,8 +61,8 @@ SecurityPassUtils securityPassUtils
 
 @Bean
 protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    String[] permitAllUrls = securityPassUtils.getUrls();
-    
+    String[] permitAllUrls = securityPassUtils.getUrls(); // [ "/user/login.do" ]
+        
     return http
     .authorizeHttpRequests(authorize -> authorize
         .antMatchers(permitAllUrls).permitAll()
@@ -67,4 +70,17 @@ protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     )
     .build();
 }
+```
+
+
+# Sample Code
+```java
+@SecurityPass
+@SecurityPass(role="admin")
+@SecurityPass(role="user")
+```
+```java
+String[] permitAllUrls = securityPassUtils.getUrls();
+String[] permitAdminrls = securityPassUtils.getUrls("admin");
+String[] permitUserUrls = securityPassUtils.getUrls("user");
 ```
