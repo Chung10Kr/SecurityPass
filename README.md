@@ -1,5 +1,6 @@
 # SecurityPass
-- SecurityPass makes it more convenient to use Spring Security.
+- There was an inconvenience of managing duplicate APIs based on permissions when using Spring Security
+- Using this library helps manage APIs based on permissions.
 - SecurityPass provides the @SecurityPass annotation. The @SecurityPass annotation can be used on a controller's methods.
 - SecurityPassUtils returns the API URLs of methods with the @SecurityPass annotation attached.
 
@@ -78,6 +79,7 @@ protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 @SecurityPass
 @SecurityPass(role="admin")
 @SecurityPass(role="user")
+@SecurityPass(role={"user","admin"})
 ```
 ```java
 String[] permitAllUrls = securityPassUtils.getUrls();
