@@ -87,3 +87,22 @@ String[] permitAllUrls = securityPassUtils.getUrls();
 String[] permitAdminrls = securityPassUtils.getUrls("admin");
 String[] permitUserUrls = securityPassUtils.getUrls("user");
 ```
+
+
+
+## Gradle
+```bash
+implementation group: 'io.github.Chung10Kr', name: 'SecurityPass', version: '1.0.0'
+```
+## Gradle short
+```bash
+implementation 'io.github.Chung10Kr:SecurityPass:1.0.0'
+```
+## Maven
+```bash
+<dependency>
+    <groupId>io.github.Chung10Kr</groupId>
+    <artifactId>SecurityPass</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
