@@ -3,6 +3,7 @@
 - Using this library helps manage APIs based on permissions.
 - SecurityPass provides the @SecurityPass annotation. The @SecurityPass annotation can be used on a controller's methods.
 - SecurityPassUtils returns the API URLs of methods with the @SecurityPass annotation attached.
+- [Maven Central](https://central.sonatype.com/artifact/io.github.Chung10Kr/SecurityPass/1.0.0/overview)
 
 # AS-IS
 

@@ -1,0 +1,16 @@
+ext {
+    PUBLISH_GROUP_ID = 'io.github.Chung10Kr'
+    PUBLISH_VERSION = '1.0.0'
+    PUBLISH_ARTIFACT_ID = 'SecurityPass'
+    PUBLISH_DESCRIPTION = 'Permission-based API URL Management Library via @SecurityPass Annotation'
+    PUBLISH_URL = 'https://github.com/Chung10Kr/SecurityPass'
+    PUBLISH_LICENSE_NAME = 'GNU License'
+    PUBLISH_LICENSE_URL = 'https://github.com/Chung10Kr/SecurityPass/blob/master/LICENSE'
+    PUBLISH_DEVELOPER_ID = 'Chung10Kr'
+    PUBLISH_DEVELOPER_NAME = 'ChungRyeol Lee'
+    PUBLISH_DEVELOPER_EMAIL = 'coohg93@hanmail.net'
+    PUBLISH_SCM_CONNECTION = 'scm:git:github.com/Chung10Kr/SecurityPass.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION = 'scm:git:ssh://github.com:Chung10Kr/SecurityPass.git'
+    PUBLISH_SCM_URL = 'https://github.com/Chung10Kr/SecurityPass/tree/master'
+}
+

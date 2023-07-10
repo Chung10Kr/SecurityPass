@@ -1,9 +1,16 @@
+
+buildscript {
+    dependencies {
+        classpath "io.github.gradle-nexus:publish-plugin:1.1.0"
+    }
+}
+
 plugins {
     id 'java'
 }
 
-group 'org.securitypass'
-version '1.0-SNAPSHOT'
+group 'io.github.Chung10Kr'
+version '1.0.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -21,10 +28,15 @@ test {
 
 
 jar {
-    archiveBaseName = 'security-pass'
-    archiveVersion =  '1.0.0'
+
+    archiveBaseName = 'SecurityPass'
+    archiveVersion = '1.0.0'
     manifest {
         attributes 'Implementation-Title': 'Security Pass Library',
                 'Implementation-Version': archiveVersion
     }
 }
+
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: "${rootDir}/scripts/publish-maven.gradle"
+apply from: 'publish.gradle'
