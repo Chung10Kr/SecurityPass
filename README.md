@@ -5,8 +5,9 @@
 - SecurityPassUtils returns the API URLs of methods with the @SecurityPass annotation attached.
 - [Maven Central](https://central.sonatype.com/artifact/io.github.Chung10Kr/SecurityPass/1.0.0/overview)
 
-# AS-IS
+# AS-IS - 1
 
+- In the controller and spring-security settings, it is inconvenient to manage URLs for each authority redundantly.
 ### Controller method
 ```java
 @PostMapping(value = "/user/login.do")
@@ -33,7 +34,39 @@ protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 }
 ```
 
+------------
+# AS-IS - 2
+- There are annotations for authorization and authentication in each method, but special settings must be made.
+- @PreAuthorize("hasRole('ROLE_USER') In this case, it is difficult to check errors caused by typos at runtime.
+- When using annotations such as @PermitAll, authorizeHttpRequests() cannot be used in spring-security configuration.
+- When using annotations such as @PermitAll, special configuration is required to use authorizeHttpRequests() in spring-security configuration.
+```java
+@PermitAll
+//@Secured({"ROLE_USER","ROLE_ADMIN"})
+//@PreAuthorize("hasRole('ROLE_USER') and hasRole('ROLE_ADMIN')")
+public HashMap<String, Object> actionLogin() throws Exception {
+// Login Action
+}
+```
+```java
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
+//@EnableMethodSecurity(securedEnabled = true ,  securedEnabled = true)
+public class SecurityConfig {
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                //.authorizeHttpRequests(authorize -> authorize
+                //        .antMatchers(AUTH_WHITELIST).permitAll()
+                //        .anyRequest().authenticated()
+                //)
+                .build();
+    }
+}
+```
 # To-Be
+- No special configuration is required to use the @SecurityPass annotation.
+- SecurityPassUtils returns the API URLs of methods with the @SecurityPass annotation attached.
 ### Controller method
 ```java
 
