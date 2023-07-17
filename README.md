@@ -39,7 +39,7 @@ protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 - There are annotations for authorization and authentication in each method, but special settings must be made.
 - @PreAuthorize("hasRole('ROLE_USER') In this case, it is difficult to check errors caused by typos at runtime.
 - When using annotations such as @PermitAll, authorizeHttpRequests() cannot be used in spring-security configuration.
-- When using annotations such as @PermitAll, special configuration is required to use authorizeHttpRequests() in spring-security configuration.
+- When using annotations such as @PermitAll, you need to set or remove special settings to authorizeHttpRequests() in your spring-security configuration.
 ```java
 @PermitAll
 //@Secured({"ROLE_USER","ROLE_ADMIN"})
