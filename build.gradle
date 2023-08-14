@@ -10,7 +10,7 @@ plugins {
 }
 
 group 'io.github.Chung10Kr'
-version '1.0.0-SNAPSHOT'
+version '1.0.1-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -29,9 +29,8 @@ test {
 
 
 jar {
-
     archiveBaseName = 'SecurityPass'
-    archiveVersion = '1.0.0'
+    archiveVersion = '1.0.1'
     manifest {
         attributes 'Implementation-Title': 'Security Pass Library',
                 'Implementation-Version': archiveVersion

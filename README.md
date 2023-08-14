@@ -3,7 +3,7 @@
 - Using this library helps manage APIs based on permissions.
 - SecurityPass provides the @SecurityPass annotation. The @SecurityPass annotation can be used on a controller's methods.
 - SecurityPassUtils returns the API URLs of methods with the @SecurityPass annotation attached.
-- [Maven Central](https://central.sonatype.com/artifact/io.github.Chung10Kr/SecurityPass/1.0.0/overview)
+- [Maven Central](https://central.sonatype.com/artifact/io.github.Chung10Kr/SecurityPass/1.0.1/overview)
 
 # AS-IS - 1
 
@@ -125,17 +125,17 @@ String[] permitUserUrls = securityPassUtils.getUrls("user");
 
 ## Gradle
 ```bash
-implementation group: 'io.github.Chung10Kr', name: 'SecurityPass', version: '1.0.0'
+implementation group: 'io.github.Chung10Kr', name: 'SecurityPass', version: '1.0.1'
 ```
 ## Gradle short
 ```bash
-implementation 'io.github.Chung10Kr:SecurityPass:1.0.0'
+implementation 'io.github.Chung10Kr:SecurityPass:1.0.1'
 ```
 ## Maven
 ```bash
 <dependency>
     <groupId>io.github.Chung10Kr</groupId>
     <artifactId>SecurityPass</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
